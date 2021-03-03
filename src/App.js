@@ -20,8 +20,8 @@ function App() {
         <h1>Episodios Rick y Morty</h1>
         <ul>
         { !todos ? 'Cargando...' :
-            todos.results.map((todo, index) => {
-              return <li>{todo.name}</li>
+            todos.results.map((todo) => {
+              return <li key={todo.id}>{todo.name}</li>
             })
           }
         </ul>
