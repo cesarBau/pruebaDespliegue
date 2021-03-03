@@ -1,22 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const url = 'https://rickandmortyapi.com/api/episode'
+  const [todos, setTodos] = useState()
+  const consumo = async() =>{
+    const responde = await fetch(url)
+    const respondeJson = await responde.json()
+    setTodos(respondeJson)
+  }
+  useEffect(() => {
+    consumo()
+  }, [])
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Episodios Rick y Morty</h1>
+        <ul>
+        { !todos ? 'Cargando...' :
+            todos.results.map((todo, index) => {
+              return <li>{todo.name}</li>
+            })
+          }
+        </ul>
       </header>
     </div>
   );
